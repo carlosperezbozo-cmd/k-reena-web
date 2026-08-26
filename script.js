@@ -1,14 +1,22 @@
+const HERO_VIDEO_ID = "zXmUD2L6p2Y";
+
 const soundToggle = document.getElementById("soundToggle");
 const soundLabel = document.getElementById("soundLabel");
 const iframe = document.querySelector(".hero-video iframe");
 let soundOn = false;
+
+function setHeroVideo(muted) {
+  if (!iframe) return;
+  iframe.src = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&mute=${muted ? 1 : 0}&controls=0&loop=1&playlist=${HERO_VIDEO_ID}&modestbranding=1&rel=0&playsinline=1&enablejsapi=1`;
+}
+
 soundToggle?.addEventListener("click", () => {
   soundOn = !soundOn;
-  const base = "https://www.youtube-nocookie.com/embed/02yVcc5XkD8";
-  iframe.src = `${base}?autoplay=1&mute=${soundOn ? 0 : 1}&controls=0&loop=1&playlist=02yVcc5XkD8&modestbranding=1&rel=0&playsinline=1`;
+  setHeroVideo(!soundOn);
   soundLabel.textContent = soundOn ? "SILENCIAR" : "SONIDO";
   soundToggle.setAttribute("aria-label", soundOn ? "Silenciar video" : "Abrir video con sonido");
 });
+
 const nav = document.getElementById("nav");
 let lastY = 0;
 window.addEventListener("scroll", () => {
